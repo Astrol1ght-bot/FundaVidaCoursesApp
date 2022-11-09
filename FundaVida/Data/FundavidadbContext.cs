@@ -16,6 +16,8 @@ public partial class FundavidadbContext : DbContext
     {
     }
 
+    public virtual DbSet<Administrador> Administradors { get; set; }
+
     public virtual DbSet<Curso> Cursos { get; set; }
 
     public virtual DbSet<Estudiante> Estudiantes { get; set; }
@@ -28,10 +30,28 @@ public partial class FundavidadbContext : DbContext
 
     public virtual DbSet<Vacante> Vacantes { get; set; }
 
-   
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Administrador>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Administrador");
+
+            entity.Property(e => e.AdministradorHashpassword)
+                .HasMaxLength(60)
+                .IsUnicode(false)
+                .HasColumnName("administradorHashpassword");
+            entity.Property(e => e.AdministradorId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("administradorID");
+            entity.Property(e => e.AdministradorNombre)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("administradorNombre");
+        });
+
         modelBuilder.Entity<Curso>(entity =>
         {
             entity.HasKey(e => e.CursoId).HasName("pk_Curso_cursoID");
