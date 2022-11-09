@@ -1,0 +1,44 @@
+﻿@page
+@model FundaVida.Pages.Estudiantes.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Estudiante</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Estudiante.EstudianteNombre" class="control-label"></label>
+                <input asp-for="Estudiante.EstudianteNombre" class="form-control" />
+                <span asp-validation-for="Estudiante.EstudianteNombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estudiante.EstudianteApellidos" class="control-label"></label>
+                <input asp-for="Estudiante.EstudianteApellidos" class="form-control" />
+                <span asp-validation-for="Estudiante.EstudianteApellidos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estudiante.EstudianteCorreo" class="control-label"></label>
+                <input asp-for="Estudiante.EstudianteCorreo" class="form-control" />
+                <span asp-validation-for="Estudiante.EstudianteCorreo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
