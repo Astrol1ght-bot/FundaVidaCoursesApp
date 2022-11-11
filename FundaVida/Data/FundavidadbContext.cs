@@ -14,6 +14,7 @@ public partial class FundavidadbContext : DbContext
     public FundavidadbContext(DbContextOptions<FundavidadbContext> options)
         : base(options)
     {
+
     }
 
     public virtual DbSet<Administrador> Administradors { get; set; }
@@ -30,22 +31,20 @@ public partial class FundavidadbContext : DbContext
 
     public virtual DbSet<Vacante> Vacantes { get; set; }
 
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Administrador>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Administrador");
+            entity.HasKey(e => e.AdministradorId).HasName("pk_adminstrador_administradorID");
 
+            entity.ToTable("Administrador");
+
+            entity.Property(e => e.AdministradorId).HasColumnName("administradorID");
             entity.Property(e => e.AdministradorHashpassword)
                 .HasMaxLength(60)
                 .IsUnicode(false)
                 .HasColumnName("administradorHashpassword");
-            entity.Property(e => e.AdministradorId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("administradorID");
             entity.Property(e => e.AdministradorNombre)
                 .HasMaxLength(20)
                 .IsUnicode(false)
