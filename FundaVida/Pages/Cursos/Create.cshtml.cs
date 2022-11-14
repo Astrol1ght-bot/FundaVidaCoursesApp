@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using FundaVida.Data;
 using FundaVida.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace FundaVida.Pages.Cursos
 {
     public class CreateModel : PageModel
     {
-        private readonly FundaVida.Data.FundavidadbContext _context;
+        private readonly FundavidadbContext _context;
 
-        public CreateModel(FundaVida.Data.FundavidadbContext context)
+        public CreateModel(FundavidadbContext context)
         {
             _context = context;
         }
@@ -26,15 +27,32 @@ namespace FundaVida.Pages.Cursos
 
         [BindProperty]
         public Curso Curso { get; set; }
-        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
+
+            if (Curso.ImageFile != null)
+            {
+                byte[] pic = null;
+
+                using (Stream fs = Curso.ImageFile.OpenReadStream())
+                {
+                    using (var memorystream = new MemoryStream())
+                    {
+                        fs.CopyTo(memorystream);
+                        pic = memorystream.ToArray();
+                    }
+                }
+
+                Curso.CursoImagen = pic;
+            }
+
 
             _context.Cursos.Add(Curso);
             await _context.SaveChangesAsync();

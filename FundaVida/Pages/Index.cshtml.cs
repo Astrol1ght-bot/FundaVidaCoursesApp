@@ -1,11 +1,7 @@
-﻿using FundaVida.Models;
-using FundaVida.ViewModel;
-using Microsoft.AspNetCore.Http.Features;
+﻿using FundaVida.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace FundaVida.Pages
 {
@@ -44,6 +40,7 @@ namespace FundaVida.Pages
 
                                      ).ToListAsync();
             }
+
             return Page();
         }
     }

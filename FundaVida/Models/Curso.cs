@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FundaVida.Models;
 
@@ -12,4 +13,7 @@ public partial class Curso
     public byte[]? CursoImagen { get; set; }
 
     public virtual ICollection<Horario> Horarios { get; } = new List<Horario>();
+
+    [NotMapped]
+    public IFormFile ImageFile { get; set; }    
 }

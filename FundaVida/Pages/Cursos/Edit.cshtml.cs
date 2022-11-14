@@ -48,6 +48,24 @@ namespace FundaVida.Pages.Cursos
                 return Page();
             }
 
+
+
+            if (Curso.ImageFile != null)
+            {
+                byte[] pic = null;
+
+                using (Stream fs = Curso.ImageFile.OpenReadStream())
+                {
+                    using (var memorystream = new MemoryStream())
+                    {
+                        fs.CopyTo(memorystream);
+                        pic = memorystream.ToArray();
+                    }
+                }
+
+                Curso.CursoImagen = pic;
+            }
+
             _context.Attach(Curso).State = EntityState.Modified;
 
             try

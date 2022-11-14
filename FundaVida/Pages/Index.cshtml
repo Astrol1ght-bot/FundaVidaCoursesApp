@@ -21,7 +21,7 @@
 <br />
 
 <div class="row">
-    <div class="page-wrapper col-md-12 px-8">
+    <div class="col-md-12">
         <div id="top_1" class="col-md-4">
             <div class="titlebox">
                 OFERTA
@@ -36,32 +36,42 @@
 <br />
 
 <div class="row">
-    <main class="cd-main-content page-wrapper">
-        <section id="mixContainer" class="cd-galley">
+    <main class="cd-main-content">
+        <section class="cd-galley">
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                    @foreach (var item in Model.HorarioList)
-                    {
-                        <div class="col">
-                            <div class="card">
-                                <img class="card-img-top" />
-                                <div class="card-body">
-                                    <div class="card-title">
-                                        @Html.DisplayFor(modelItem => item.cursonombre)
-                                    </div>
-                                    <div class="card-text">
-                                        @Html.DisplayFor(motelItem => item.horainicio)
-                                        @Html.DisplayFor(modelItem => item.horafin)
-                                    </div>
-                                    <div class="card-group">
-                                        <button class="btn btn-dark">
-                                            Matricula Ya!
-                                        </button>
-                                    </div>
+                @foreach (var item in Model.HorarioList)
+                {
+                    <div class="col">
+                        <div class="card">
+                            @if (item.cursoimagen != null)
+                            {
+                                var base64 = Convert.ToBase64String(item.cursoimagen);
+                                var img = string.Format("data:image/jpg;base64,{0}", base64);
+                                <img class="card-img-top"  src="@img" />
+                            }
+                            else
+                            {
+
+                                <p>no image</p>
+                            }
+                            <div class="card-body">
+                                <div class="card-title">
+                                    @Html.DisplayFor(modelItem => item.cursonombre)
+                                </div>
+                                <div class="card-text">
+                                    @Html.DisplayFor(motelItem => item.horainicio)
+                                    @Html.DisplayFor(modelItem => item.horafin)
+                                </div>
+                                <div class="card-group">
+                                    <button class="btn btn-dark">
+                                        Matricula Ya!
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    }
+                    </div>
+                }
 
             </div>
 

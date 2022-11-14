@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using FundaVida.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,7 +60,6 @@ public partial class FundavidadbContext : DbContext
 
             entity.Property(e => e.CursoId).HasColumnName("cursoID");
             entity.Property(e => e.CursoImagen)
-                .HasMaxLength(1)
                 .HasColumnName("cursoImagen");
             entity.Property(e => e.CursoNombre)
                 .HasMaxLength(50)
