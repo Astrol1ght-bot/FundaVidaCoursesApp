@@ -7,9 +7,9 @@ namespace FundaVida.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly Data.FundavidadbContext _context;
+        private readonly Entity.Data.FundavidadbContext _context;
 
-        public IndexModel(Data.FundavidadbContext context)
+        public IndexModel(Entity.Data.FundavidadbContext context)
         {
             _context = context;
 
@@ -19,9 +19,8 @@ namespace FundaVida.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            if(_context.Horarios != null)
+            if (_context.Horarios != null)
             {
-                //Horario = await _context.Horarios.ToListAsync();
                 HorarioList = await (from hr in _context.Horarios
                                      join curso in _context.Cursos on hr.CursoId equals curso.CursoId
                                      join grupo in _context.Grupos on hr.GrupoId equals grupo.GrupoId

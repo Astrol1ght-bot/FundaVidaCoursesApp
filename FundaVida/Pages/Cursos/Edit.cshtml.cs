@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using FundaVida.Data;
-using FundaVida.Models;
+using FundaVida.Entity.Data;
+using FundaVida.Entity;
 
 namespace FundaVida.Pages.Cursos
 {
     public class EditModel : PageModel
     {
-        private readonly FundaVida.Data.FundavidadbContext _context;
+        private readonly FundavidadbContext _context;
 
-        public EditModel(FundaVida.Data.FundavidadbContext context)
+        public EditModel(FundavidadbContext context)
         {
             _context = context;
         }

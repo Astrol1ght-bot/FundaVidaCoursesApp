@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FundaVida.Models;
+namespace FundaVida.Entity;
 
 public partial class Administrador
 {

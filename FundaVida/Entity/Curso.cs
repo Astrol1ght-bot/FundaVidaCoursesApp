@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FundaVida.Models;
+namespace FundaVida.Entity;
 
 public partial class Curso
 {
@@ -15,5 +15,5 @@ public partial class Curso
     public virtual ICollection<Horario> Horarios { get; } = new List<Horario>();
 
     [NotMapped]
-    public IFormFile ImageFile { get; set; }    
+    public IFormFile ImageFile { get; set; }
 }

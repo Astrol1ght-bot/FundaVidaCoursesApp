@@ -1,4 +1,4 @@
-using FundaVida.Data;
+using FundaVida.Entity.Data;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<FundavidadbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("FundaVida")));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("defaultconnectionstring")));
 
 var app = builder.Build();
 

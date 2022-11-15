@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using FundaVida.Models;
+using FundaVida.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace FundaVida.Data;
+namespace FundaVida.Entity.Data;
 
 public partial class FundavidadbContext : DbContext
 {
@@ -15,7 +14,6 @@ public partial class FundavidadbContext : DbContext
     public FundavidadbContext(DbContextOptions<FundavidadbContext> options)
         : base(options)
     {
-
     }
 
     public virtual DbSet<Administrador> Administradors { get; set; }
@@ -32,7 +30,6 @@ public partial class FundavidadbContext : DbContext
 
     public virtual DbSet<Vacante> Vacantes { get; set; }
 
-    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Administrador>(entity =>
@@ -59,8 +56,7 @@ public partial class FundavidadbContext : DbContext
             entity.ToTable("Curso");
 
             entity.Property(e => e.CursoId).HasColumnName("cursoID");
-            entity.Property(e => e.CursoImagen)
-                .HasColumnName("cursoImagen");
+            entity.Property(e => e.CursoImagen).HasColumnName("cursoImagen");
             entity.Property(e => e.CursoNombre)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -115,7 +111,7 @@ public partial class FundavidadbContext : DbContext
 
             entity.HasOne(d => d.Curso).WithMany(p => p.Horarios)
                 .HasForeignKey(d => d.CursoId)
-                .HasConstraintName("fk_Horario_horarioID");
+                .HasConstraintName("fk_Horario_cursoID");
 
             entity.HasOne(d => d.Grupo).WithMany(p => p.Horarios)
                 .HasForeignKey(d => d.GrupoId)
@@ -174,6 +170,7 @@ public partial class FundavidadbContext : DbContext
             entity.Property(e => e.Dia)
                 .HasColumnType("date")
                 .HasColumnName("dia");
+            entity.Property(e => e.DuracionTotal).HasColumnName("duracionTotal");
             entity.Property(e => e.EnEspera).HasColumnName("enEspera");
             entity.Property(e => e.HoraFin).HasColumnName("horaFin");
             entity.Property(e => e.HoraInicio).HasColumnName("horaInicio");

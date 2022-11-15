@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FundaVida.Models;
+namespace FundaVida.Entity;
 
 public partial class Vacante
 {
@@ -14,6 +14,8 @@ public partial class Vacante
     public TimeSpan? HoraFin { get; set; }
 
     public bool? EnEspera { get; set; }
+
+    public int? DuracionTotal { get; set; }
 
     public virtual ICollection<Horario> Horarios { get; } = new List<Horario>();
 }

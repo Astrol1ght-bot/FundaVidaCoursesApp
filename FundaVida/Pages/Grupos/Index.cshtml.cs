@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using FundaVida.Data;
-using FundaVida.Models;
+using FundaVida.Entity.Data;
+using FundaVida.Entity;
 
 namespace FundaVida.Pages.Grupos
 {
     public class IndexModel : PageModel
     {
-        private readonly FundaVida.Data.FundavidadbContext _context;
+        private readonly FundavidadbContext _context;
 
-        public IndexModel(FundaVida.Data.FundavidadbContext context)
+        public IndexModel(FundavidadbContext context)
         {
             _context = context;
         }

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using FundaVida.Data;
-using FundaVida.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using FundaVida.Entity.Data;
+using FundaVida.Entity;
 
 namespace FundaVida.Pages.Cursos
 {
