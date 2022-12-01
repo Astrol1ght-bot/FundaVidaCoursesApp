@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FundaVida.Entity;
+using FundaVida.Entity.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FundaVida.Entity.Data;
@@ -16,164 +16,172 @@ public partial class FundavidadbContext : DbContext
     {
     }
 
-    public virtual DbSet<Administrador> Administradors { get; set; }
+    public virtual DbSet<Course> Courses { get; set; }
 
-    public virtual DbSet<Curso> Cursos { get; set; }
+    public virtual DbSet<Enrollment> Enrollments { get; set; }
 
-    public virtual DbSet<Estudiante> Estudiantes { get; set; }
+    public virtual DbSet<Group> Groups { get; set; }
 
-    public virtual DbSet<Grupo> Grupos { get; set; }
+    public virtual DbSet<Modality> Modalities { get; set; }
 
-    public virtual DbSet<Horario> Horarios { get; set; }
+    public virtual DbSet<Module> Modules { get; set; }
 
-    public virtual DbSet<Profesor> Profesors { get; set; }
+    public virtual DbSet<Professor> Professors { get; set; }
 
-    public virtual DbSet<Vacante> Vacantes { get; set; }
+    public virtual DbSet<Student> Students { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:defaultconnectionstring");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Administrador>(entity =>
+        modelBuilder.Entity<Course>(entity =>
         {
-            entity.HasKey(e => e.AdministradorId).HasName("pk_adminstrador_administradorID");
+            entity.HasKey(e => e.CourseId).HasName("pk_courseId");
 
-            entity.ToTable("Administrador");
+            entity.Property(e => e.CourseId).HasColumnName("courseId");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.ImageData).HasColumnName("imageData");
+            entity.Property(e => e.ModalityId).HasColumnName("modalityId");
+            entity.Property(e => e.Name)
+                .HasMaxLength(150)
+                .HasColumnName("name");
+            entity.Property(e => e.ProfessorId).HasColumnName("professorId");
 
-            entity.Property(e => e.AdministradorId).HasColumnName("administradorID");
-            entity.Property(e => e.AdministradorHashpassword)
-                .HasMaxLength(60)
-                .IsUnicode(false)
-                .HasColumnName("administradorHashpassword");
-            entity.Property(e => e.AdministradorNombre)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("administradorNombre");
+            entity.HasOne(d => d.Modality).WithMany(p => p.Courses)
+                .HasForeignKey(d => d.ModalityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_course_modalityId");
+
+            entity.HasOne(d => d.Professor).WithMany(p => p.Courses)
+                .HasForeignKey(d => d.ProfessorId)
+                .HasConstraintName("fk_course_professorId");
+
+            entity.Property(e => e.MaxEnrollments).HasColumnName("maxEnrollments");
         });
 
-        modelBuilder.Entity<Curso>(entity =>
+        modelBuilder.Entity<Enrollment>(entity =>
         {
-            entity.HasKey(e => e.CursoId).HasName("pk_Curso_cursoID");
+            entity.HasKey(e => e.EnrollmentId).HasName("pk_enrollmentId");
 
-            entity.ToTable("Curso");
-
-            entity.Property(e => e.CursoId).HasColumnName("cursoID");
-            entity.Property(e => e.CursoImagen).HasColumnName("cursoImagen");
-            entity.Property(e => e.CursoNombre)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("cursoNombre");
-        });
-
-        modelBuilder.Entity<Estudiante>(entity =>
-        {
-            entity.HasKey(e => e.EstudianteId).HasName("pk_Estudiante_estudianteID");
-
-            entity.ToTable("Estudiante");
-
-            entity.Property(e => e.EstudianteId).HasColumnName("estudianteID");
-            entity.Property(e => e.EstudianteApellidos)
-                .HasMaxLength(200)
-                .IsUnicode(false)
-                .HasColumnName("estudianteApellidos");
-            entity.Property(e => e.EstudianteCorreo)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("estudianteCorreo");
-            entity.Property(e => e.EstudianteNombre)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("estudianteNombre");
-        });
-
-        modelBuilder.Entity<Grupo>(entity =>
-        {
-            entity.HasKey(e => e.GrupoId).HasName("pk_Grupo_grupoID");
-
-            entity.ToTable("Grupo");
-
-            entity.Property(e => e.GrupoId).HasColumnName("grupoID");
-            entity.Property(e => e.GrupoNombre)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("grupoNombre");
-        });
-
-        modelBuilder.Entity<Horario>(entity =>
-        {
-            entity.HasKey(e => e.HorarioId).HasName("pk_Horario_horarioID");
-
-            entity.ToTable("Horario");
-
-            entity.Property(e => e.HorarioId).HasColumnName("horarioID");
-            entity.Property(e => e.CursoId).HasColumnName("cursoID");
-            entity.Property(e => e.GrupoId).HasColumnName("grupoID");
-            entity.Property(e => e.ProfesorId).HasColumnName("profesorID");
-            entity.Property(e => e.VacanteId).HasColumnName("vacanteID");
-
-            entity.HasOne(d => d.Curso).WithMany(p => p.Horarios)
-                .HasForeignKey(d => d.CursoId)
-                .HasConstraintName("fk_Horario_cursoID");
-
-            entity.HasOne(d => d.Grupo).WithMany(p => p.Horarios)
-                .HasForeignKey(d => d.GrupoId)
-                .HasConstraintName("fk_Grupo_grupoID");
-
-            entity.HasOne(d => d.Profesor).WithMany(p => p.Horarios)
-                .HasForeignKey(d => d.ProfesorId)
-                .HasConstraintName("fk_Profesor_profesorID");
-
-            entity.HasOne(d => d.Vacante).WithMany(p => p.Horarios)
-                .HasForeignKey(d => d.VacanteId)
-                .HasConstraintName("fk_Horario_vacanteID");
-
-            entity.HasMany(d => d.Estudiantes).WithMany(p => p.Horarios)
-                .UsingEntity<Dictionary<string, object>>(
-                    "HorarioEstudiante",
-                    r => r.HasOne<Estudiante>().WithMany()
-                        .HasForeignKey("EstudianteId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("fk_HorarioEstudiante_estudianteID"),
-                    l => l.HasOne<Horario>().WithMany()
-                        .HasForeignKey("HorarioId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("fk_HorarioEstudiante_horarioID"),
-                    j =>
-                    {
-                        j.HasKey("HorarioId", "EstudianteId").HasName("pk_HorarioEstudianteID");
-                        j.ToTable("HorarioEstudiante");
-                    });
-        });
-
-        modelBuilder.Entity<Profesor>(entity =>
-        {
-            entity.HasKey(e => e.ProfesorId).HasName("pk_Profesor_profesorID");
-
-            entity.ToTable("Profesor");
-
-            entity.Property(e => e.ProfesorId).HasColumnName("profesorID");
-            entity.Property(e => e.Apellidos)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("apellidos");
-            entity.Property(e => e.Nombre)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("nombre");
-        });
-
-        modelBuilder.Entity<Vacante>(entity =>
-        {
-            entity.HasKey(e => e.VacanteId).HasName("pk_Vacante_vacanteID");
-
-            entity.ToTable("Vacante");
-
-            entity.Property(e => e.VacanteId).HasColumnName("vacanteID");
-            entity.Property(e => e.Dia)
-                .HasColumnType("date")
-                .HasColumnName("dia");
-            entity.Property(e => e.DuracionTotal).HasColumnName("duracionTotal");
+            entity.Property(e => e.EnrollmentId).HasColumnName("enrollmentId");
+            entity.Property(e => e.CourseId).HasColumnName("courseId");
             entity.Property(e => e.EnEspera).HasColumnName("enEspera");
-            entity.Property(e => e.HoraFin).HasColumnName("horaFin");
-            entity.Property(e => e.HoraInicio).HasColumnName("horaInicio");
+            entity.Property(e => e.GroupId).HasColumnName("groupId");
+            entity.Property(e => e.StudentId).HasColumnName("studentId");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.Enrollments)
+                .HasForeignKey(d => d.CourseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_enrollment_courseId");
+
+            entity.HasOne(d => d.Group).WithMany(p => p.Enrollments)
+                .HasForeignKey(d => d.GroupId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_enrollment_groupId");
+
+            entity.HasOne(d => d.Student).WithMany(p => p.Enrollments)
+                .HasForeignKey(d => d.StudentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_enrollment_studentId");
+        });
+
+        modelBuilder.Entity<Group>(entity =>
+        {
+            entity.HasKey(e => e.GroupId).HasName("pk_groupId");
+
+            entity.Property(e => e.GroupId).HasColumnName("groupId");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<Modality>(entity =>
+        {
+            entity.HasKey(e => e.ModalityId).HasName("pk_modalityId");
+
+            entity.ToTable("Modality");
+
+            entity.Property(e => e.ModalityId).HasColumnName("modalityId");
+            entity.Property(e => e.Name)
+                .HasMaxLength(15)
+                .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<Module>(entity =>
+        {
+            entity.HasKey(e => e.ModuleId).HasName("pk_moduleId");
+
+            entity.Property(e => e.ModuleId).HasColumnName("moduleId");
+            entity.Property(e => e.CourseId).HasColumnName("courseId");
+            entity.Property(e => e.DateFin)
+                .HasColumnType("date")
+                .HasColumnName("dateFin");
+            entity.Property(e => e.DateIni)
+                .HasColumnType("date")
+                .HasColumnName("dateIni");
+            entity.Property(e => e.Name)
+                .HasMaxLength(200)
+                .HasColumnName("name");
+            entity.Property(e => e.Schedule)
+                .HasMaxLength(100)
+                .HasColumnName("schedule");
+            entity.Property(e => e.TotalHours).HasColumnName("totalHours");
+            entity.Property(e => e.Weeks).HasColumnName("weeks");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.Modules)
+                .HasForeignKey(d => d.CourseId)
+                .HasConstraintName("fk_module_courseId");
+        });
+
+        modelBuilder.Entity<Professor>(entity =>
+        {
+            entity.HasKey(e => e.ProfessorId).HasName("pk_professorId");
+
+            entity.Property(e => e.ProfessorId).HasColumnName("professorId");
+            entity.Property(e => e.LastName)
+                .HasMaxLength(200)
+                .HasColumnName("lastName");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<Student>(entity =>
+        {
+            entity.HasKey(e => e.StudentId).HasName("pk_studentId");
+
+            entity.Property(e => e.StudentId).HasColumnName("studentId");
+            entity.Property(e => e.Email)
+                .HasMaxLength(200)
+                .HasColumnName("email");
+            entity.Property(e => e.LastName)
+                .HasMaxLength(200)
+                .HasColumnName("lastName");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(12)
+                .HasColumnName("phoneNumber");
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("pk_userId");
+
+            entity.Property(e => e.UserId).HasColumnName("userId");
+            entity.Property(e => e.Hashedpassword)
+                .HasMaxLength(50)
+                .HasColumnName("hashedpassword");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+            entity.Property(e => e.Role)
+                .HasMaxLength(20)
+                .HasColumnName("role");
         });
 
         OnModelCreatingPartial(modelBuilder);

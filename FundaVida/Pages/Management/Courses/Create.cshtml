@@ -1,0 +1,58 @@
+﻿@page
+@model FundaVida.Pages.Courses.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Crear nuevo curso</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Course.Name" class="control-label"></label>
+                <input asp-for="Course.Name" class="form-control" />
+                <span asp-validation-for="Course.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Course.Description" class="control-label"></label>
+                <input asp-for="Course.Description" class="form-control" />
+                <span asp-validation-for="Course.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Course.Modality" class="control-label"></label>
+                <select asp-for="Course.ModalityId" class="form-control"
+                        asp-items="@Model.ModalitySL">
+                    <option value="">-- Seleccionar Modalidad --</option>
+                </select>
+                <span asp-validation-for="Course.ModalityId" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Course.Professor" class="control-label"></label>
+                <select asp-for="Course.ProfessorId" class="form-control"
+                        asp-items="@Model.ProfessorSL">
+                    <option value="">-- Seleccionar Profesor --</option>
+                </select>
+                <span asp-validation-for="Course.ProfessorId" class="text-danger"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Course.ImageFile" class="control-label"></label>
+                <input type="file" asp-for="Course.ImageFile" class="form-control" />
+                <span asp-validation-for="Course.ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

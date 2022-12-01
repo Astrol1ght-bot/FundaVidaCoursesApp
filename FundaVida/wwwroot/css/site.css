@@ -1,14 +1,11 @@
 * {
-    font-family: Garamond, serif;
+    font-family: Arial, serif;
 }
 
-html {
-    font-size: 15px;
-}
 
 @media (min-width: 768px) {
     html {
-        font-size: 16px;
+        font-size: 15px;
     }
 }
 
@@ -23,8 +20,55 @@ body {
 
 .titlebox {
     text-align: center;
+    font-size: 16px;
 }
 
 h1{
-    font: 22px;
+    font-size: 24px;
+    font-weight: bold;
 }
+
+.box{
+    width: 200px;
+    height: 100px;
+    background: yellow;
+    margin: 20px;
+    box-sizing: border-box;
+    font-size: 50px;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-flow: wrap;
+}
+
+/* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+.svg-icon {
+    width: 2em;
+    height: 2em;
+}
+
+    .svg-icon svg {
+        
+    }
+
+    .svg.svg-icon.svg-baseline svg{
+        top: .125em;
+        position: relative;
+    }
+
+    .svg-icon path,
+    .svg-icon polygon,
+    .svg-icon rect {
+        fill: #4691f6;
+    }
+
+    .svg-icon circle {
+        stroke: #4691f6;
+        stroke-width: 1;
+    }

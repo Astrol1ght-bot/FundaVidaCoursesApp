@@ -1,0 +1,43 @@
+﻿@page
+@model FundaVida.Pages.Management.Enrolls.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Enrollment</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enrollment.EnEspera)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enrollment.EnEspera)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enrollment.Course)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enrollment.Course.CourseId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enrollment.Group)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enrollment.Group.GroupId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enrollment.Student)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enrollment.Student.StudentId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Enrollment?.EnrollmentId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

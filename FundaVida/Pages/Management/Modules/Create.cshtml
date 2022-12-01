@@ -1,0 +1,63 @@
+﻿@page
+@model FundaVida.Pages.Management.Modules.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Module</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Module.Name" class="control-label"></label>
+                <input asp-for="Module.Name" class="form-control" />
+                <span asp-validation-for="Module.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.Weeks" class="control-label"></label>
+                <input asp-for="Module.Weeks" class="form-control" />
+                <span asp-validation-for="Module.Weeks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.DateIni" class="control-label"></label>
+                <input asp-for="Module.DateIni" class="form-control" />
+                <span asp-validation-for="Module.DateIni" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.DateFin" class="control-label"></label>
+                <input asp-for="Module.DateFin" class="form-control" />
+                <span asp-validation-for="Module.DateFin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.Schedule" class="control-label"></label>
+                <input asp-for="Module.Schedule" class="form-control" />
+                <span asp-validation-for="Module.Schedule" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.TotalHours" class="control-label"></label>
+                <input asp-for="Module.TotalHours" class="form-control" />
+                <span asp-validation-for="Module.TotalHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.CourseId" class="control-label"></label>
+                <select asp-for="Module.CourseId" class ="form-control" asp-items="ViewBag.CourseId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
