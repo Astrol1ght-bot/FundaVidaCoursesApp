@@ -5,7 +5,7 @@ namespace FundaVida.Pages.Management
 {
     public class IndexModel : PageModel
     {
-        public PageResult OnGet()
+        public  PageResult OnGet()
         {
             return Page();
         }

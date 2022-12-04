@@ -23,12 +23,12 @@ body {
     font-size: 16px;
 }
 
-h1{
+h1 {
     font-size: 24px;
     font-weight: bold;
 }
 
-.box{
+.box {
     width: 200px;
     height: 100px;
     background: yellow;
@@ -37,12 +37,27 @@ h1{
     font-size: 50px;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     flex-flow: wrap;
 }
+
+.nav-center {
+    text-align: center;
+}
+
+    .nav-center div.nav {
+        display: inline-block;
+    }
+
+        .nav-center div.nav button {
+            display: inline;
+            float: left;
+        }
+
+
 
 /* -----
 SVG Icons - svgicons.sparkk.fr
@@ -54,21 +69,20 @@ SVG Icons - svgicons.sparkk.fr
 }
 
     .svg-icon svg {
-        
     }
 
-    .svg.svg-icon.svg-baseline svg{
-        top: .125em;
-        position: relative;
-    }
+.svg.svg-icon.svg-baseline svg {
+    top: .125em;
+    position: relative;
+}
 
-    .svg-icon path,
-    .svg-icon polygon,
-    .svg-icon rect {
-        fill: #4691f6;
-    }
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+    fill: #4691f6;
+}
 
-    .svg-icon circle {
-        stroke: #4691f6;
-        stroke-width: 1;
-    }
+.svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+}
