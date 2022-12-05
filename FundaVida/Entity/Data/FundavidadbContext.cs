@@ -20,8 +20,6 @@ public partial class FundavidadbContext : DbContext
 
     public virtual DbSet<Enrollment> Enrollments { get; set; }
 
-    public virtual DbSet<Group> Groups { get; set; }
-
     public virtual DbSet<Modality> Modalities { get; set; }
 
     public virtual DbSet<Module> Modules { get; set; }
@@ -69,7 +67,6 @@ public partial class FundavidadbContext : DbContext
             entity.Property(e => e.EnrollmentId).HasColumnName("enrollmentId");
             entity.Property(e => e.CourseId).HasColumnName("courseId");
             entity.Property(e => e.EnEspera).HasColumnName("enEspera");
-            entity.Property(e => e.GroupId).HasColumnName("groupId");
             entity.Property(e => e.StudentId).HasColumnName("studentId");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Enrollments)
@@ -77,26 +74,12 @@ public partial class FundavidadbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_enrollment_courseId");
 
-            entity.HasOne(d => d.Group).WithMany(p => p.Enrollments)
-                .HasForeignKey(d => d.GroupId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_enrollment_groupId");
-
             entity.HasOne(d => d.Student).WithMany(p => p.Enrollments)
                 .HasForeignKey(d => d.StudentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_enrollment_studentId");
         });
 
-        modelBuilder.Entity<Group>(entity =>
-        {
-            entity.HasKey(e => e.GroupId).HasName("pk_groupId");
-
-            entity.Property(e => e.GroupId).HasColumnName("groupId");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .HasColumnName("name");
-        });
 
         modelBuilder.Entity<Modality>(entity =>
         {

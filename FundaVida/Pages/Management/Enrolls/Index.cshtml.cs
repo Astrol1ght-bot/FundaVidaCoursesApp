@@ -27,7 +27,6 @@ namespace FundaVida.Pages.Management.Enrolls
             {
                 Enrollment = await _context.Enrollments
                 .Include(e => e.Course)
-                .Include(e => e.Group)
                 .Include(e => e.Student).ToListAsync();
             }
         }

@@ -37,7 +37,6 @@ namespace FundaVida.Pages.Management.Enrolls
             }
             Enrollment = enrollment;
            ViewData["CourseId"] = new SelectList(_context.Courses, "CourseId", "CourseId");
-           ViewData["GroupId"] = new SelectList(_context.Groups, "GroupId", "GroupId");
            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "StudentId");
             return Page();
         }
